@@ -1,10 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Response } from '@nestjs/common';
+import { Response as expResponse } from 'express';
 
 @Controller()
 export class AppController {
   @Get('hello')
-  getHello(): string {
-    return 'Hello World';
+  getHello(@Response() res: expResponse): expResponse {
+    return res.json('Hello World');
   }
 }

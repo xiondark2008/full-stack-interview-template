@@ -18,7 +18,11 @@ export class AppController {
    */
   @Get('movies')
   async getMovies(@Response() res: expResponse): Promise<expResponse> {
+    //TODO: create typescript interface for data, see if I can pull types from the source repo.
+    //Get movies from service
     const movies = await this.moviesService.getMovies();
+    
+    //Sort movies by title; Server side data manipulation
     const sortedMovies = this.moviesService.sortByTitle(movies);
 
     return res.json(movies);

@@ -7,8 +7,7 @@ import { Movie } from './app.types';
 export class AppController {
   private moviesService = new AppService();
 
-  @Get('/') //Added to match test cases
-  @Get('hello')
+  @Get(['/', 'hello']) //Changed to match test cases
   getHello(@Response() res: expResponse): expResponse {
     return res.json('Hello World!'); //Added "!" to match test cases
   }
@@ -20,15 +19,63 @@ export class AppController {
    */
   @Get('movies')
   async getMovies(@Response() res: expResponse): Promise<expResponse> {
-    //TODO: create typescript interface for data, see if I can pull types from the source repo.
+    //Get movies from service
+    const movies: Movie[] = await this.moviesService.getMovies();
+
+    return res.json(movies);
+  }
+
+  /**
+   * Get list of movies sorted by title
+   * @param res 
+   * @returns 
+   */
+  @Get('movies/byTitle')
+  async getMoviesByTitle(@Response() res: expResponse): Promise<expResponse> {
     //Get movies from service
     const movies: Movie[] = await this.moviesService.getMovies();
 
     //Sort movies by title; Server side data manipulation
     const sortedMovies: Movie[] =
-      movies && movies.length > 0
-        ? this.moviesService.sortByTitle(movies)
-        : movies;
+      movies.length > 0 ? this.moviesService.sortByTitle(movies) : movies;
+
+    return res.json(movies);
+  }
+
+  /**
+   * Get list of movies sorted by director
+   * @param res 
+   * @returns 
+   */
+  @Get('movies/byDirector')
+  async getMoviesByDirector(
+    @Response() res: expResponse,
+  ): Promise<expResponse> {
+    //Get movies from service
+    const movies: Movie[] = await this.moviesService.getMovies();
+
+    //Sort movies by director; Server side data manipulation
+    const sortedMovies: Movie[] =
+      movies.length > 0 ? this.moviesService.sortByDirector(movies) : movies;
+
+    return res.json(movies);
+  }
+
+  /**
+   * Get list of movies sorted by release date
+   * @param res 
+   * @returns 
+   */
+  @Get('movies/byReleaseDate')
+  async getMoviesByReleaseDate(
+    @Response() res: expResponse,
+  ): Promise<expResponse> {
+    //Get movies from service
+    const movies: Movie[] = await this.moviesService.getMovies();
+
+    //Sort movies by release date; Server side data manipulation
+    const sortedMovies: Movie[] =
+      movies.length > 0 ? this.moviesService.sortByReleaseDate(movies) : movies;
 
     return res.json(movies);
   }

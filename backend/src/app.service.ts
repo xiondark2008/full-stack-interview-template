@@ -12,7 +12,6 @@ export class AppService {
     return 'Hello World!';
   }
 
-  //TODO: create unit test
   /**
    * Get list of movies from provided source
    * @returns array of movies
@@ -22,28 +21,25 @@ export class AppService {
       'https://swapi-graphql.netlify.app/.netlify/functions/index';
     const config: object = {
       params: {
-        query: `query Query {
-          allFilms {
-            films {
-              title,
-              director,
-              releaseDate
-            }
-          }
-        }`,
+        query: 'query Query {allFilms {films {title, director, releaseDate}}}',
       },
     };
 
     try {
+      //destructure response to get movies
       const {
-        data: { allFilms: films },
+        data: {
+          data: {
+            allFilms: { films: movies },
+          },
+        },
       } = await firstValueFrom(this.httpService.get(url, config));
 
-      return films;
+      return movies;
     } catch (error) {
+      //Log error and return empty array to gracefully handle error
       console.error(error);
-
-      return []
+      return [];
     }
   }
 
@@ -58,6 +54,40 @@ export class AppService {
       if (a.title > b.title) {
         return 1;
       } else if (b.title > a.title) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  /**
+   * Sort movies by director
+   * @param movies 
+   * @returns array of movies sorted by director
+   */
+  sortByDirector(movies: Movie[]): Movie[] {
+    return movies.sort((a, b) => {
+      if (a.director > b.director) {
+        return 1;
+      } else if (b.director > a.director) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  /**
+   * Sort movies by release date
+   * @param movies 
+   * @returns array of movies sorted by release date
+   */
+  sortByReleaseDate(movies: Movie[]): Movie[] {
+    return movies.sort((a, b) => {
+      if (a.releaseDate > b.releaseDate) {
+        return 1;
+      } else if (b.releaseDate > a.releaseDate) {
         return -1;
       } else {
         return 0;

@@ -20,13 +20,50 @@ export class AppComponent implements OnInit {
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
+  /**
+   * On init
+   */
+  ngOnInit(): void {
     this.apiService.getHelloWorld().subscribe((data) => {
       this.message = data;
     });
+
+    this.displayMovies();
   }
 
-  getMovies() {
-    this.movies = this.apiService.getMovies();
+  /**
+   * Display movies
+   */
+  displayMovies(): void {
+    this.apiService.getMovies().subscribe((movies) => {
+      this.movies = movies;
+    });
   }
+
+  /**
+   * Display movies sorted by title
+   */
+  displayMoviesSortedByTitle(): void {
+    this.apiService.getMoviesSortedByTitle().subscribe((movies) => {
+      this.movies = movies;
+    });
+  }
+
+  /**
+   * Display movies sorted by director
+   */
+  displayMoviesSortedByDirector(): void {
+    this.apiService.getMoviesSortedByDirector().subscribe((movies) => {
+      this.movies = movies;
+    });
+  } 
+
+  /**
+   * Display movies sorted by release date
+   */
+  displayMoviesSortedByReleaseDate(): void {
+    this.apiService.getMoviesSortedByReleaseDate().subscribe((movies) => {
+      this.movies = movies;
+    });
+  } 
 }

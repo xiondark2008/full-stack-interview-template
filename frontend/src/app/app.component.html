@@ -1,6 +1,8 @@
 <main class="main">
   <div class="content">
-    <app-button text="Get Movies" (onClick)="getMovies()"></app-button>
+    <app-button text="Sort By Title" (onClick)="displayMoviesSortedByTitle()"></app-button>
+    <app-button text="Sort By Director" (onClick)="displayMoviesSortedByDirector()"></app-button>
+    <app-button text="Sort By Release Date" (onClick)="displayMoviesSortedByReleaseDate()"></app-button>
     <app-movies-table [movies]="movies"></app-movies-table>
   </div>
 </main>

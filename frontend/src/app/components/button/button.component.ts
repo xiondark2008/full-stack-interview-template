@@ -14,6 +14,9 @@ export class ButtonComponent {
 
   constructor() {}
 
+  /**
+   * output event handler
+   */
   onClickHandler() {
     this.onClick.emit();
   }

@@ -43,7 +43,6 @@ export class AppService {
     }
   }
 
-  //TODO: create unit test
   /**
    * Sort movies by title
    * @param movies

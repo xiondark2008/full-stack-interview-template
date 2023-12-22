@@ -1,0 +1,11 @@
+@use '../../../styles/colors';
+
+button {
+    background-color: transparent;
+    color: colors.$blue;
+    font-weight: inherit;
+    font-size: inherit;
+    border: 2px solid colors.$blue;
+    border-radius: 5px;
+    margin: 0.5em;
+}

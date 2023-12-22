@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { Movie } from './app.types';
 
 @Injectable()
 export class AppService {
@@ -11,37 +12,48 @@ export class AppService {
     return 'Hello World!';
   }
 
+  //TODO: create unit test
   /**
    * Get list of movies from provided source
    * @returns array of movies
    */
-  async getMovies() {
-    const url:string = 'https://swapi-graphql.netlify.app/.netlify/functions/index';
-    const config:object = {
+  async getMovies(): Promise<Movie[] | null> {
+    const url: string =
+      'https://swapi-graphql.netlify.app/.netlify/functions/index';
+    const config: object = {
       params: {
-        "query": "query Query {allFilms {films {title,director,releaseDate}}}",
-      }
-    }
-    
+        query: `query Query {
+          allFilms {
+            films {
+              title,
+              director,
+              releaseDate
+            }
+          }
+        }`,
+      },
+    };
+
     try {
-      //TODO: create typescript interface for data, see if I can pull types from the source repo.
-      const { data } = await firstValueFrom(this.httpService.get(url, config));
-      
-      return data.data.allFilms.films;
+      const {
+        data: { allFilms: films },
+      } = await firstValueFrom(this.httpService.get(url, config));
+
+      return films;
     } catch (error) {
-      console.log(error)
-      //TODO: handle error
+      console.log(error);
+
+      return null;
     }
   }
 
-  //TODO: create typescript interface
   //TODO: create unit test
   /**
    * Sort movies by title
-   * @param movies 
+   * @param movies
    * @returns array of movies sorted by title
    */
-  sortByTitle(movies) {
+  sortByTitle(movies: Movie[]): Movie[] {
     return movies.sort((a, b) => {
       if (a.title > b.title) {
         return 1;

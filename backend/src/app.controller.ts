@@ -27,8 +27,8 @@ export class AppController {
 
   /**
    * Get list of movies sorted by title
-   * @param res 
-   * @returns 
+   * @param res
+   * @returns
    */
   @Get('movies/byTitle')
   async getMoviesByTitle(@Response() res: expResponse): Promise<expResponse> {
@@ -39,13 +39,13 @@ export class AppController {
     const sortedMovies: Movie[] =
       movies.length > 0 ? this.moviesService.sortByTitle(movies) : movies;
 
-    return res.json(movies);
+    return res.json(sortedMovies);
   }
 
   /**
    * Get list of movies sorted by director
-   * @param res 
-   * @returns 
+   * @param res
+   * @returns
    */
   @Get('movies/byDirector')
   async getMoviesByDirector(
@@ -58,13 +58,13 @@ export class AppController {
     const sortedMovies: Movie[] =
       movies.length > 0 ? this.moviesService.sortByDirector(movies) : movies;
 
-    return res.json(movies);
+    return res.json(sortedMovies);
   }
 
   /**
    * Get list of movies sorted by release date
-   * @param res 
-   * @returns 
+   * @param res
+   * @returns
    */
   @Get('movies/byReleaseDate')
   async getMoviesByReleaseDate(
@@ -77,6 +77,6 @@ export class AppController {
     const sortedMovies: Movie[] =
       movies.length > 0 ? this.moviesService.sortByReleaseDate(movies) : movies;
 
-    return res.json(movies);
+    return res.json(sortedMovies);
   }
 }

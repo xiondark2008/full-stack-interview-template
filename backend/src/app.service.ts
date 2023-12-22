@@ -17,7 +17,7 @@ export class AppService {
    * Get list of movies from provided source
    * @returns array of movies
    */
-  async getMovies(): Promise<Movie[] | null> {
+  async getMovies(): Promise<Movie[]> {
     const url: string =
       'https://swapi-graphql.netlify.app/.netlify/functions/index';
     const config: object = {
@@ -41,9 +41,9 @@ export class AppService {
 
       return films;
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
-      return null;
+      return []
     }
   }
 

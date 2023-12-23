@@ -1,3 +1,13 @@
+@use "../../../styles/colors";
 table {
-    margin: 0 auto;
+  margin: 0 auto;
+  
+
+  thead th {
+    border-bottom: 1px solid colors.$yellow;
+  }
+
+  tbody td {
+    padding: 0.25em 1em;
+  }
 }

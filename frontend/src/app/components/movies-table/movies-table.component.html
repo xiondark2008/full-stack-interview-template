@@ -1,16 +1,18 @@
-<table>
+<section>
+  <table>
     <thead>
-        <tr>
-            <th>Movie</th>
-            <th>Year</th>
-            <th>Rating</th>
-        </tr>
+      <tr>
+        <th>Movie</th>
+        <th>Year</th>
+        <th>Rating</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let movie of movies">
-            <td>{{ movie.title }}</td>
-            <td>{{ movie.director }}</td>
-            <td>{{ movie.releaseDate }}</td>
-        </tr>
+      <tr *ngFor="let movie of movies">
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.director }}</td>
+        <td>{{ movie.releaseDate }}</td>
+      </tr>
     </tbody>
-</table>
+  </table>
+</section>
